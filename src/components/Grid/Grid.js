@@ -14,7 +14,7 @@ const colors = [
 	'orange',
 ];
 
-const Grid = () => {
+const Grid = (props) => {
 	const columns = 4;
 	const numberOfCards = 14;
   let counter = 0;
@@ -22,22 +22,21 @@ const Grid = () => {
   const [steps, setSteps] = useState(0);
 
 	const stepCounter = (event) => {
-    console.log('OK');
-		if (event.target.classList.contains('card')) {
-			counter += 1;
+    if (event.target.classList.contains('card')) {
+      counter++;
 		}
     if (counter % 2 === 0) {
       setSteps(prevState => prevState + 1)
-      counter = 0;
     }
+    props.onChangeSteps(steps)
 	};
-
+  
 	return (
 		<div
 			className={classes.grid}
 			onClick={stepCounter}
 		>
-			<div className='card'>{steps}</div>
+			<div className='card'></div>
 			<div className='card'></div>
 			<div className='card'></div>
 			<div className='card'></div>

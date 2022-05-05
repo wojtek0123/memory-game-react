@@ -3,12 +3,16 @@ import './App.css';
 import Modal from './components/Modal/Modal';
 import Grid from './components/Grid/Grid';
 
-function App() {
+function App(props) {
 	const [show, setShow] = useState(true);
 
 	const hideModal = () => {
 		setShow(false);
 	};
+
+	const setps = (input) => {
+		console.log(input)
+	}
 
 	return (
 		<div className='App'>
@@ -18,7 +22,7 @@ function App() {
 				<p>Time: 00:00</p>
 			</div>
 			{show && <Modal onShow={hideModal} />}
-			<Grid />
+			<Grid onChangeSteps={setps}/>
 		</div>
 	);
 }
