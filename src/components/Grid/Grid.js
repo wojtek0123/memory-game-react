@@ -17,13 +17,13 @@ const colors = [
 const Grid = (props) => {
 	const columns = 4;
 	const numberOfCards = 14;
-  let counter = 0;
 
   const [steps, setSteps] = useState(0);
+  const [counter, setCounter] = useState(0);
 
 	const stepCounter = (event) => {
     if (event.target.classList.contains('card')) {
-      counter++;
+      setCounter(prevState => prevState + 1)
 		}
     if (counter % 2 === 0) {
       setSteps(prevState => prevState + 1)
