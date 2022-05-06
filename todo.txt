@@ -1,3 +1,5 @@
 - make tests
 - implement basic logic to memory game
+- improve timer and make seperate folder
 - improve UI
+- refactor code
