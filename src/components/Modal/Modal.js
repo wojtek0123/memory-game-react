@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import classes from './Modal.module.css';
 
 const Modal = (props) => {
-	const isFinished = false;
+	const [isFinished, setIsFinished] = useState(false);
+
+	
 
 	return (
 		<div className={classes.modal}>
@@ -13,7 +16,7 @@ const Modal = (props) => {
 				</>
 			)}
 			{!isFinished && <p>Start the game</p>}
-			<button onClick={props.onShow}>Play!</button>
+			<button onClick={props.onShow} onChange={props.onClick}>Play!</button>
 		</div>
 	);
 };
