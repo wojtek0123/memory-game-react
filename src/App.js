@@ -3,30 +3,26 @@ import './App.css';
 import Modal from './components/Modal/Modal';
 import Grid from './components/Grid/Grid';
 import Timer from './components/UI/Timer';
+import Steps from './components/UI/Steps';
 
 const App = () => {
-	const [steps, setSteps] = useState(0);
 	const [show, setShow] = useState(true);
-	
+
 	const hideModal = () => {
 		setShow(false);
-	};
-
-	const changeStepsHandler = (stepsData) => {
-		setSteps(stepsData);
 	};
 
 	return (
 		<div className='App'>
 			<h1>Memory Game!</h1>
 			<div className='stats'>
-				<p>Steps: {steps}</p>
-				<Timer show={show}/>
+				<Steps />
+				<Timer show={show} />
 			</div>
 			{show && <Modal onShow={hideModal} />}
-			<Grid onChangeSteps={changeStepsHandler} />
+			<Grid />
 		</div>
 	);
-}
+};
 
 export default App;
