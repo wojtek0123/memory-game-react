@@ -11,9 +11,9 @@ function App(props) {
 		setShow(false);
 	};
 
-	const changeStepsHandler = (input) => {
-		setSteps(input);
-	}
+	const changeStepsHandler = (stepsData) => {
+		setSteps(stepsData);
+	};
 
 	return (
 		<div className='App'>
@@ -23,7 +23,7 @@ function App(props) {
 				<p>Time: 00:00</p>
 			</div>
 			{show && <Modal onShow={hideModal} />}
-			<Grid onChangeSteps={changeStepsHandler}/>
+			<Grid onChangeSteps={changeStepsHandler} />
 		</div>
 	);
 }
