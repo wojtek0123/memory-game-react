@@ -4,8 +4,6 @@ import classes from './Modal.module.css';
 const Modal = (props) => {
 	const [isFinished, setIsFinished] = useState(false);
 
-	
-
 	return (
 		<div className={classes.modal}>
 			<h2>Memory Game!</h2>
