@@ -33,7 +33,7 @@ const Timer = (props) => {
 			setInter(null);
 		}
 	}, [props.show, timer, inter]);
-  
+	
 	return (
 		<p>
 			Time:{' '}
