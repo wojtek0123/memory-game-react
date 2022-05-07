@@ -3,3 +3,4 @@
 - improve UI
 - refactor code
 - disable clicking on card while modal is open
+- add dynamic generate cards
