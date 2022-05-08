@@ -1,14 +1,58 @@
 .App {
-  text-align: center;
-  margin: 0 1em;
+	text-align: center;
+	margin: 0 1em;
 }
 
 .stats {
-  display: flex;
-  justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 }
 
 .stats p {
-  margin: 0.25em;
-  font-size: 1.2rem;
+	margin: 0.25em;
+	font-size: 1.2rem;
+}
+
+.red {
+	background-color: red;
+}
+
+.yellow {
+	background-color: yellow;
+}
+
+.green {
+	background-color: greenyellow;
+}
+
+.blue {
+	background-color: royalblue;
+}
+
+.purple {
+	background-color: purple;
+}
+
+.pink {
+	background-color: pink;
+}
+
+.white {
+	background-color: white;
+}
+
+.grey {
+	background-color: grey;
+}
+
+.brown {
+	background-color: brown;
+}
+
+.orange {
+	background-color: orange;
+}
+
+.hide {
+  background-color: transparent;
 }
