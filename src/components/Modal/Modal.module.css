@@ -1,34 +1,36 @@
 .modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-  background-color: #222;
-  color: #fff;
-  padding: 2em;
-  border-radius: 2em;
-  width: 80%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	align-items: center;
+	background-color: #222;
+	color: #fff;
+	padding: 2em;
+	width: 80%;
+	z-index: 1;
+  width: 100vw;
+  height: 100vh;  
 }
 
 .modal h2 {
-  font-size: 2rem;
-  margin-bottom: 1em;
+	font-size: 2rem;
+	margin-bottom: 1em;
 }
 
 .modal p {
-  font-size: 1.5rem;
-  margin: 0.25em 0;
+	font-size: 1.5rem;
+	margin: 0.25em 0;
 }
 
 .modal button {
-  font-size: 1.5rem;
-  margin-top: 2em;
-  padding: 0.5em 1.3em;
-  cursor: pointer;
-  border-radius: 0.75em;
-  border: none;
+	font-size: 1.5rem;
+	margin-top: 2em;
+	padding: 0.5em 1.3em;
+	cursor: pointer;
+	border-radius: 0.75em;
+	border: none;
 }

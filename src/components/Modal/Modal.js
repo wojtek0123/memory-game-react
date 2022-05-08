@@ -14,7 +14,9 @@ const Modal = (props) => {
 				</>
 			)}
 			{!isFinished && <p>Start the game</p>}
-			<button onClick={props.onShow} onChange={props.onClick}>Play!</button>
+			<button onClick={props.onShow} onChange={props.onClick}>
+				Play!
+			</button>
 		</div>
 	);
 };
