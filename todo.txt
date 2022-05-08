@@ -3,4 +3,5 @@
 - improve UI
 - refactor code
 - disable clicking on card while modal is open
-- add dynamic generate cards
+- flip over cards which are quested
+- add feature that two selected cards are visible, not only one
