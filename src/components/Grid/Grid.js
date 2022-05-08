@@ -80,7 +80,10 @@ const colors = [
 const shuffledColors = colors.sort(() => 0.5 - Math.random());
 
 const Grid = () => {
+	const pair = 2;
 	const [isSelected, setIsSelected] = useState('');
+	const [selects, setSelects] = useState([]);
+	const [quests, setQuests] = useState([]);
 	const authCtx = useContext(AuthContext);
 
 	const clickHandler = (event) => {
@@ -88,9 +91,27 @@ const Grid = () => {
 		authCtx.stepCounter(element);
 	};
 
-	const handleClick = (id) => {
-		setIsSelected(id);
+	const handleClick = (id, color) => {
+		if (selects.length < pair) {
+			setIsSelected(id);
+			setSelects((prevState) => [...prevState, color]);
+		}
 	};
+
+	useEffect(() => {
+		if (selects.length === 2) {
+			if (selects[0] === selects[1]) {
+				setQuests(prevState => [...prevState, selects[0]])
+			}
+
+			setTimeout(() => {
+				setSelects([])
+				setIsSelected(null)
+			}, 500);
+		}
+	}, [setQuests, selects])
+
+	console.log(quests)
 
 	return (
 		<div className={classes.grid} onClick={clickHandler}>
@@ -102,8 +123,10 @@ const Grid = () => {
 								? item.color + ' card'
 								: item.color + ' hide card'
 						}
-						onClick={() => handleClick(item.id)}
-					/>
+						onClick={() => handleClick(item.id, item.color)}
+					>
+						{selects}
+					</div>
 				</Fragment>
 			))}
 		</div>
