@@ -5,83 +5,47 @@ import classes from './Grid.module.css';
 const colors = [
 	{
 		color: 'red',
-		id: 'color-1',
-	},
-	{
-		color: 'red',
-		id: 'color-2',
 	},
 	{
 		color: 'yellow',
-		id: 'color-3',
-	},
-	{
-		color: 'yellow',
-		id: 'color-4',
 	},
 	{
 		color: 'green',
-		id: 'color-5',
-	},
-	{
-		color: 'green',
-		id: 'color-6',
 	},
 	{
 		color: 'blue',
-		id: 'color-7',
-	},
-	{
-		color: 'blue',
-		id: 'color-8',
 	},
 	{
 		color: 'purple',
-		id: 'color-9',
-	},
-	{
-		color: 'purple',
-		id: 'color-10',
 	},
 	{
 		color: 'pink',
-		id: 'color-11',
-	},
-	{
-		color: 'pink',
-		id: 'color-12',
 	},
 	{
 		color: 'grey',
-		id: 'color-13',
-	},
-	{
-		color: 'grey',
-		id: 'color-14',
 	},
 	{
 		color: 'brown',
-		id: 'color-15',
-	},
-	{
-		color: 'brown',
-		id: 'color-16',
 	},
 	{
 		color: 'orange',
-		id: 'color-17',
-	},
-	{
-		color: 'orange',
-		id: 'color-18',
 	},
 ];
 
-const shuffledColors = colors.sort(() => 0.5 - Math.random());
+const generateBoard = (array) => {
+	const arrayOfColors = [];
+	for (let i = 0; i < colors.length; i++) {
+		arrayOfColors.push(array[i]);
+		arrayOfColors.push(array[i]);
+	}
+	return arrayOfColors;
+};
+
+const shuffledColors = generateBoard(colors).sort(() => 0.5 - Math.random());
 
 const Grid = () => {
 	const pair = 2;
-	const [isSelected, setIsSelected] = useState('');
+	const [isVisible, setIsVisible] = useState('');
 	const [selects, setSelects] = useState([]);
 	const [quests, setQuests] = useState([]);
 	const authCtx = useContext(AuthContext);
@@ -93,20 +57,27 @@ const Grid = () => {
 
 	const handleClick = (id, color) => {
 		if (selects.length < pair) {
-			setIsSelected(id);
-			setSelects((prevState) => [...prevState, color]);
+			setIsVisible(id);
+			setSelects((prevState) => [...prevState, id]);
 		}
 	};
 
 	useEffect(() => {
 		if (selects.length === 2) {
-			if (selects[0] === selects[1]) {
-				setQuests((prevState) => [...prevState, selects[0]]);
+			// console.log(`Pierwszy: ${shuffledColors[selects[0]].color}`)
+			if (
+				shuffledColors[selects[0]].color === shuffledColors[selects[1]].color
+			) {
+				setQuests((prevState) => [
+					...prevState,
+					shuffledColors[selects[0]].color,
+				]);
 			}
 
+			// console.log(selects)
 			setTimeout(() => {
 				setSelects([]);
-				setIsSelected(null);
+				setIsVisible(null);
 			}, 500);
 		}
 	}, [setQuests, selects]);
@@ -115,15 +86,15 @@ const Grid = () => {
 
 	return (
 		<div className={classes.grid} onClick={clickHandler}>
-			{shuffledColors.map((item) => (
-				<Fragment key={item.id}>
+			{shuffledColors.map((item, index) => (
+				<Fragment key={index}>
 					<div
 						className={
-							isSelected === item.id || item.isClicked
+							selects.includes(index)
 								? item.color + ' card'
 								: item.color + ' hide card'
 						}
-						onClick={() => handleClick(item.id, item.color)}
+						onClick={() => handleClick(index, item.color)}
 					>
 						{selects}
 					</div>
