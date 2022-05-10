@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 
 const StepContext = React.createContext({
 	steps: 0,
-	stepCounter: (element) => {},
+	stepCounter: () => {},
 });
 
 export const StepContextProvider = (props) => {
 	const [steps, setSteps] = useState(0);
 	const [counter, setCounter] = useState(0);
 
-	const stepCounter = (element) => {
-		if (element.classList.contains('card')) {
-			setCounter((prevState) => prevState + 1);
-		}
+	const stepCounter = () => {
+		setCounter((prevState) => prevState + 1);
 
 		if (counter % 2 !== 0) {
 			setSteps((prevState) => prevState + 1);
