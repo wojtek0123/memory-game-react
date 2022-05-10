@@ -101,17 +101,17 @@ const Grid = () => {
 	useEffect(() => {
 		if (selects.length === 2) {
 			if (selects[0] === selects[1]) {
-				setQuests(prevState => [...prevState, selects[0]])
+				setQuests((prevState) => [...prevState, selects[0]]);
 			}
 
 			setTimeout(() => {
-				setSelects([])
-				setIsSelected(null)
+				setSelects([]);
+				setIsSelected(null);
 			}, 500);
 		}
-	}, [setQuests, selects])
+	}, [setQuests, selects]);
 
-	console.log(quests)
+	console.log(quests);
 
 	return (
 		<div className={classes.grid} onClick={clickHandler}>
@@ -119,7 +119,7 @@ const Grid = () => {
 				<Fragment key={item.id}>
 					<div
 						className={
-							isSelected === item.id
+							isSelected === item.id || item.isClicked
 								? item.color + ' card'
 								: item.color + ' hide card'
 						}
