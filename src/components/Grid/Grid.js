@@ -1,5 +1,5 @@
 import { useContext, Fragment, useState, useEffect } from 'react';
-import AuthContext from '../../store/steps-context';
+import StepContext from '../../store/steps-context';
 import classes from './Grid.module.css';
 
 const colors = [
@@ -47,7 +47,7 @@ const Grid = (props) => {
 	const pair = 2;
 	const [selects, setSelects] = useState([]);
 	const [quests, setQuests] = useState([]);
-	const authCtx = useContext(AuthContext);
+	const authCtx = useContext(StepContext);
 
 	const clickHandler = (event) => {
 		const element = event.target;
@@ -65,6 +65,8 @@ const Grid = (props) => {
 			// display time and steps
 			// button to restart
 			console.log('Game is over');
+			console.log(props.onShow())
+			props.onShow()
 		}
 	};
 

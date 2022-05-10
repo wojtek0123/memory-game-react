@@ -12,6 +12,10 @@ const App = () => {
 		setShow(false);
 	};
 
+	const showModal = () => {
+		setShow(true);
+	}
+
 	return (
 		<div className='App'>
 			<h1>Memory Game!</h1>
@@ -20,7 +24,7 @@ const App = () => {
 				<Timer show={show} />
 			</div>
 			{show && <Modal onShow={hideModal} />}
-			<Grid />
+			<Grid onShow={showModal} />
 		</div>
 	);
 };

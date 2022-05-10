@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-const AuthContext = React.createContext({
+const StepContext = React.createContext({
 	steps: 0,
 	stepCounter: (element) => {},
 });
 
-export const AuthContextProvider = (props) => {
+export const StepContextProvider = (props) => {
 	const [steps, setSteps] = useState(0);
 	const [counter, setCounter] = useState(0);
 
@@ -25,10 +25,10 @@ export const AuthContextProvider = (props) => {
 	};
 
 	return (
-		<AuthContext.Provider value={contextValue}>
+		<StepContext.Provider value={contextValue}>
 			{props.children}
-		</AuthContext.Provider>
+		</StepContext.Provider>
 	);
 };
 
-export default AuthContext;
+export default StepContext;
