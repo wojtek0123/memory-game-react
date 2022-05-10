@@ -68,13 +68,9 @@ const Grid = () => {
 			if (
 				shuffledColors[selects[0]].color === shuffledColors[selects[1]].color
 			) {
-				setQuests((prevState) => [
-					...prevState,
-					shuffledColors[selects[0]].color,
-				]);
+				setQuests((prevState) => [...prevState, selects[0], selects[1]]);
 			}
 
-			// console.log(selects)
 			setTimeout(() => {
 				setSelects([]);
 				setIsVisible(null);
@@ -90,7 +86,7 @@ const Grid = () => {
 				<Fragment key={index}>
 					<div
 						className={
-							selects.includes(index)
+							selects.includes(index) || quests.includes(index)
 								? item.color + ' card'
 								: item.color + ' hide card'
 						}
