@@ -34,6 +34,8 @@ const Timer = (props) => {
 		}
 	}, [props.show, timer, inter]);
 	
+	// if isFinished state from Modal is true stop the timer
+
 	return (
 		<p>
 			Time:{' '}

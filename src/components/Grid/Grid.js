@@ -43,9 +43,8 @@ const generateBoard = (array) => {
 
 const shuffledColors = generateBoard(colors).sort(() => 0.5 - Math.random());
 
-const Grid = () => {
+const Grid = (props) => {
 	const pair = 2;
-	const [isVisible, setIsVisible] = useState('');
 	const [selects, setSelects] = useState([]);
 	const [quests, setQuests] = useState([]);
 	const authCtx = useContext(AuthContext);
@@ -55,16 +54,22 @@ const Grid = () => {
 		authCtx.stepCounter(element);
 	};
 
-	const handleClick = (id, color) => {
+	const handleClick = (id) => {
 		if (selects.length < pair) {
-			setIsVisible(id);
 			setSelects((prevState) => [...prevState, id]);
+		}
+
+		if (quests.length === shuffledColors.length) {
+			// end game
+			// Show modal
+			// display time and steps
+			// button to restart
+			console.log('Game is over');
 		}
 	};
 
 	useEffect(() => {
 		if (selects.length === 2) {
-			// console.log(`Pierwszy: ${shuffledColors[selects[0]].color}`)
 			if (
 				shuffledColors[selects[0]].color === shuffledColors[selects[1]].color
 			) {
@@ -73,7 +78,6 @@ const Grid = () => {
 
 			setTimeout(() => {
 				setSelects([]);
-				setIsVisible(null);
 			}, 500);
 		}
 	}, [setQuests, selects]);
