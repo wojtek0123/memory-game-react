@@ -2,4 +2,6 @@
 - improve UI
 - refactor code
 - disable clicking on card while modal is open (partly finished)
-- disable clicking two time in a row in the same card
+- disable clicking on card which are visible and in array "quests"
+- create Card component
+- improve names
