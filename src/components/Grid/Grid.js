@@ -46,6 +46,7 @@ const shuffledColors = generateBoard(colors).sort(() => 0.5 - Math.random());
 const Grid = (props) => {
 	const pair = 2;
 	const [selects, setSelects] = useState([]);
+	const [isFlipped, setIsFlipped] = useState('');
 	const [quests, setQuests] = useState([]);
 	const authCtx = useContext(StepContext);
 
@@ -55,24 +56,33 @@ const Grid = (props) => {
 	};
 
 	const handleClick = (id) => {
-		if (selects.length < pair) {
-			setSelects((prevState) => [...prevState, id]);
+		if (isFlipped === id) {
+			return;
 		}
 
+		if (selects.length < pair) {
+			setSelects((prevState) => [...prevState, id]);
+			setIsFlipped(id);
+		}
+	};
+
+	const endGame = () => {
+		console.log('OK');
 		if (quests.length === shuffledColors.length) {
 			// end game
 			// Show modal
 			// display time and steps
 			// button to restart
 			console.log('Game is over');
-			console.log(props.onShow())
-			props.onShow()
+			console.log(props.onShow());
+			props.onShow();
 		}
 	};
 
 	useEffect(() => {
 		if (selects.length === 2) {
 			if (
+				// this need to be improved
 				shuffledColors[selects[0]].color === shuffledColors[selects[1]].color
 			) {
 				setQuests((prevState) => [...prevState, selects[0], selects[1]]);
@@ -96,10 +106,11 @@ const Grid = (props) => {
 								? item.color + ' card'
 								: item.color + ' hide card'
 						}
-						onClick={() => handleClick(index, item.color)}
-					>
-						{selects}
-					</div>
+						onClick={() => {
+							handleClick(index, item.color);
+							endGame();
+						}}
+					></div>
 				</Fragment>
 			))}
 		</div>

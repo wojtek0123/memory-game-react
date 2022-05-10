@@ -2,6 +2,6 @@
 - improve UI
 - refactor code
 - disable clicking on card while modal is open (partly finished)
-- disable clicking on card which are visible and in array "quests"
 - create Card component
 - improve names
+- add styles for divine cards
