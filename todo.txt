@@ -1,7 +1,5 @@
 - make tests
-- implement basic logic to memory game
 - improve UI
 - refactor code
-- disable clicking on card while modal is open
-- flip over cards which are quested
-- add feature that two selected cards are visible, not only one
+- disable clicking on card while modal is open (partly finished)
+- disable clicking two time in a row in the same card
