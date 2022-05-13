@@ -14,45 +14,37 @@
 }
 
 .red {
-	background-color: red;
+	background-color: rgb(255, 0, 0);
 }
 
 .yellow {
-	background-color: yellow;
+	background-color: rgb(255, 255, 0);
 }
 
 .green {
-	background-color: greenyellow;
+	background-color: rgb(173, 255, 47);
 }
 
 .blue {
-	background-color: royalblue;
+	background-color: rgb(65, 105, 225);
 }
 
 .purple {
-	background-color: purple;
+	background-color: rgb(128, 0, 128);
 }
 
 .pink {
-	background-color: pink;
-}
-
-.white {
-	background-color: white;
+	background-color: rgb(255, 192, 203);
 }
 
 .grey {
-	background-color: grey;
+	background-color: rgb(128, 128, 128);
 }
 
 .brown {
-	background-color: brown;
+	background-color: rgb(120, 36, 36);
 }
 
 .orange {
-	background-color: orange;
-}
-
-.hide {
-  background-color: transparent;
+	background-color: rgb(255, 165, 0);
 }
