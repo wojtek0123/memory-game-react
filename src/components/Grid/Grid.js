@@ -1,4 +1,4 @@
-import { useContext, Fragment, useState, useEffect } from 'react';
+import { useContext, Fragment, useState, useEffect, useCallback } from 'react';
 import StepContext from '../../store/steps-context';
 import classes from './Grid.module.css';
 
@@ -9,27 +9,27 @@ const colors = [
 	{
 		color: 'yellow',
 	},
-	{
-		color: 'green',
-	},
-	{
-		color: 'blue',
-	},
-	{
-		color: 'purple',
-	},
-	{
-		color: 'pink',
-	},
-	{
-		color: 'grey',
-	},
-	{
-		color: 'brown',
-	},
-	{
-		color: 'orange',
-	},
+	// {
+	// 	color: 'green',
+	// },
+	// {
+	// 	color: 'blue',
+	// },
+	// {
+	// 	color: 'purple',
+	// },
+	// {
+	// 	color: 'pink',
+	// },
+	// {
+	// 	color: 'grey',
+	// },
+	// {
+	// 	color: 'brown',
+	// },
+	// {
+	// 	color: 'orange',
+	// },
 ];
 
 const generateBoard = (array) => {
@@ -48,15 +48,25 @@ const Grid = (props) => {
 	const [selects, setSelects] = useState([]);
 	const [isFlipped, setIsFlipped] = useState('');
 	const [quests, setQuests] = useState([]);
+	// const [isFinished, setIsFinished] = useState(true);
 	const authCtx = useContext(StepContext);
 
-	const clickHandler = (event) => {
+	const stepCounterHandler = (event) => {
 		const element = event.target;
-		authCtx.stepCounter(element);
+		if (
+			element.classList.contains(classes.card) &&
+			!element.classList.contains(classes.disable)
+		) {
+			authCtx.stepCounter(element);
+		}
 	};
 
 	const handleClick = (id) => {
 		if (isFlipped === id) {
+			return;
+		}
+
+		if (quests.includes(id)) {
 			return;
 		}
 
@@ -66,50 +76,57 @@ const Grid = (props) => {
 		}
 	};
 
-	const endGame = () => {
-		console.log('OK');
-		if (quests.length === shuffledColors.length) {
-			// end game
-			// Show modal
-			// display time and steps
-			// button to restart
-			console.log('Game is over');
-			console.log(props.onShow());
-			props.onShow();
-		}
-	};
+	const reset = useCallback(() => {
+		setTimeout(() => {
+			setSelects([]);
+			setQuests([]);
+			setIsFlipped('');
+		}, 1000);
+	}, []);
 
 	useEffect(() => {
-		if (selects.length === 2) {
-			if (
-				// this need to be improved
-				shuffledColors[selects[0]].color === shuffledColors[selects[1]].color
-			) {
-				setQuests((prevState) => [...prevState, selects[0], selects[1]]);
-			}
-
-			setTimeout(() => {
-				setSelects([]);
-			}, 500);
+		if (quests.length === shuffledColors.length) {
+			props.onShow();
+			authCtx.gameIsOver();
+			reset();
 		}
-	}, [setQuests, selects]);
+	}, [props, quests, reset, authCtx]);
 
-	console.log(quests);
+	const checkCardsColor = useCallback(
+		(firstElement, secondElement) => {
+			if (selects.length === 2) {
+				if (
+					shuffledColors[firstElement].color ===
+					shuffledColors[secondElement].color
+				) {
+					setQuests((prevState) => [...prevState, firstElement, secondElement]);
+				}
+
+				setTimeout(() => {
+					setSelects([]);
+				}, 500);
+			}
+		},
+		[selects]
+	);
+
+	useEffect(() => {
+		checkCardsColor(selects[0], selects[1]);
+	}, [selects, checkCardsColor, props, authCtx]);
 
 	return (
-		<div className={classes.grid} onClick={clickHandler}>
+		<div className={classes.grid} onClick={stepCounterHandler}>
 			{shuffledColors.map((item, index) => (
 				<Fragment key={index}>
 					<div
 						className={
-							selects.includes(index) || quests.includes(index)
-								? item.color + ' card'
-								: item.color + ' hide card'
+							selects.includes(index)
+								? `${item.color} ${classes.card}`
+								: quests.includes(index)
+								? `${item.color} ${classes.disable} ${classes.card}`
+								: `${item.color} ${classes.hide} ${classes.card}`
 						}
-						onClick={() => {
-							handleClick(index, item.color);
-							endGame();
-						}}
+						onClick={() => handleClick(index, item.color)}
 					></div>
 				</Fragment>
 			))}

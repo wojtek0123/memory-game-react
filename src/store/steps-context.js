@@ -3,23 +3,46 @@ import React, { useState } from 'react';
 const StepContext = React.createContext({
 	steps: 0,
 	stepCounter: () => {},
+	resetStepCounter: () => {},
+	gameIsOver: () => {},
+	startGame: () => {},
+	isFinished: true,
+	minutes: 0,
+	seconds: 0
 });
 
 export const StepContextProvider = (props) => {
 	const [steps, setSteps] = useState(0);
 	const [counter, setCounter] = useState(0);
+	const [isFinished, setIsFinished] = useState(false)
 
 	const stepCounter = () => {
-		setCounter((prevState) => prevState + 1);
+		setCounter(counter + 1);
 
 		if (counter % 2 !== 0) {
-			setSteps((prevState) => prevState + 1);
+			setSteps(steps + 1);
 		}
 	};
+
+	const gameIsOver = () => {
+		setIsFinished(true)
+	}
+
+	const startGame = () => {
+		setIsFinished(false);
+	}
+
+	const resetStepCounter = () => {
+		setSteps(0);
+	}
 
 	const contextValue = {
 		steps: steps,
 		stepCounter: stepCounter,
+		resetStepCounter: resetStepCounter,
+		gameIsOver: gameIsOver,
+		startGame: startGame,
+		isFinished: isFinished
 	};
 
 	return (
