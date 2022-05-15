@@ -2,17 +2,19 @@ import { Fragment, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import classes from './Modal.module.css';
 import StepContext from '../../store/steps-context';
+import TimerContext from '../../store/timer-context';
+import Timer from '../UI/Timer';
 
 const Modal = (props) => {
+	const timerCtx = useContext(TimerContext);
 	const stepCtx = useContext(StepContext);
-	// const [resetTime, setResetTime] = useState(false);
 
 	const resetGame = () => {
 		props.onClick();
 		stepCtx.resetStepCounter();
-		// props.onResetGame();
+		timerCtx.resetTimer();
 	};
-	
+
 	return (
 		<Fragment>
 			{createPortal(
@@ -20,10 +22,7 @@ const Modal = (props) => {
 					<h2>Memory Game!</h2>
 					{!props.onFirstGame && (
 						<>
-							<p>
-								Time: {props.minutes < 10 ? '0' + props.minutes : props.minutes}
-								:{props.seconds < 10 ? '0' + props.seconds : props.seconds}
-							</p>
+							<Timer />
 							<p>Steps: {stepCtx.steps}</p>
 							<button onClick={resetGame}>Play Again!</button>
 						</>

@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StepContextProvider } from './store/steps-context';
+import { TimerContextProvider } from './store/timer-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<StepContextProvider>
-		<React.StrictMode>
-			<App />
-		</React.StrictMode>
-	</StepContextProvider>
+	<TimerContextProvider>
+		<StepContextProvider>
+			<React.StrictMode>
+				<App />
+			</React.StrictMode>
+		</StepContextProvider>
+	</TimerContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
