@@ -29,8 +29,6 @@ export const TimerContextProvider = (props) => {
 		setSeconds(0);
 	};
 
-  console.log(seconds)
-
 	const contextValue = {
 		minutes: minutes,
 		seconds: seconds,

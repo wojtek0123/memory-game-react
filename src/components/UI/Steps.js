@@ -1,9 +1,5 @@
-import { useContext } from "react";
-import AuthContext from "../../store/steps-context";
-
-const Steps = () => {
-	const authCtx = useContext(AuthContext);
-	return <p>Steps: {authCtx.steps}</p>;
+const Steps = (props) => {
+	return <p>Steps: {props.children}</p>;
 };
 
 export default Steps;

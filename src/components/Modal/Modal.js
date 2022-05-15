@@ -22,7 +22,7 @@ const Modal = (props) => {
 					<h2>Memory Game!</h2>
 					{!props.onFirstGame && (
 						<>
-							<Timer />
+							<Timer minutes={timerCtx.minutes} seconds={timerCtx.seconds} />
 							<p>Steps: {stepCtx.steps}</p>
 							<button onClick={resetGame}>Play Again!</button>
 						</>

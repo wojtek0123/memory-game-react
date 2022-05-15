@@ -9,27 +9,27 @@ const colors = [
 	{
 		color: 'yellow',
 	},
-	// {
-	// 	color: 'green',
-	// },
-	// {
-	// 	color: 'blue',
-	// },
-	// {
-	// 	color: 'purple',
-	// },
-	// {
-	// 	color: 'pink',
-	// },
-	// {
-	// 	color: 'grey',
-	// },
-	// {
-	// 	color: 'brown',
-	// },
-	// {
-	// 	color: 'orange',
-	// },
+	{
+		color: 'green',
+	},
+	{
+		color: 'blue',
+	},
+	{
+		color: 'purple',
+	},
+	{
+		color: 'pink',
+	},
+	{
+		color: 'grey',
+	},
+	{
+		color: 'brown',
+	},
+	{
+		color: 'orange',
+	},
 ];
 
 const generateBoard = (array) => {
@@ -82,7 +82,6 @@ const Grid = (props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log(`Quests: ${quests.length}`)
 		if (quests.length === shuffledColors.length) {
 			props.onShow();
 			authCtx.gameIsOver();
