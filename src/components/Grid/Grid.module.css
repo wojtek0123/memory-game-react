@@ -18,6 +18,9 @@
 
 .hide {
   background-color: transparent;
+}
+
+.enable-click {
 	cursor: pointer;
 }
 

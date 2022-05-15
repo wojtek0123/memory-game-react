@@ -1,8 +1,6 @@
 - make tests
 - improve UI
 - refactor code
-- disable clicking on card while modal is open (partly finished)
 - create Card component
 - improve names
-- add restart game feature
 - add transition on states

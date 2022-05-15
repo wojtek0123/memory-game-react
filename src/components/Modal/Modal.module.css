@@ -6,7 +6,7 @@
 	align-content: center;
 	justify-content: center;
 	align-items: center;
-	background-color: #222;
+	background-color: #112B3C;
 	color: #fff;
 	z-index: 1;
 }
@@ -28,4 +28,10 @@
 	cursor: pointer;
 	border-radius: 0.75em;
 	border: none;
+	transition: background-color .3s, color .3s;
+}
+
+.modal button:hover {
+	background-color: #000;
+	color: #fff;
 }
