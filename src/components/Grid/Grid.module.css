@@ -25,3 +25,9 @@
 	opacity: 0.5;
 	transform: rotateY(180deg);
 }
+
+@media (min-width: 1024px) {
+	.grid {
+		grid-template-columns: repeat(4, minmax(50px, 1fr));
+	}
+}

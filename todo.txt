@@ -4,4 +4,5 @@
 - disable clicking on card while modal is open (partly finished)
 - create Card component
 - improve names
-- add styles for divine cards
+- add restart game feature
+- add transition on states
