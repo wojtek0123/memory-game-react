@@ -1,36 +1,7 @@
 import { useContext, Fragment, useState, useEffect, useCallback } from 'react';
 import StepContext from '../../store/steps-context';
 import classes from './Grid.module.css';
-
-const colors = [
-	{
-		color: 'red',
-	},
-	{
-		color: 'yellow',
-	},
-	{
-		color: 'green',
-	},
-	{
-		color: 'blue',
-	},
-	{
-		color: 'purple',
-	},
-	{
-		color: 'pink',
-	},
-	{
-		color: 'grey',
-	},
-	{
-		color: 'brown',
-	},
-	{
-		color: 'orange',
-	},
-];
+import colors from '../../colors/colors';
 
 const generateBoard = (array) => {
 	const arrayOfColors = [];
@@ -41,12 +12,15 @@ const generateBoard = (array) => {
 	return arrayOfColors;
 };
 
-const shuffledColors = generateBoard(colors).sort(() => 0.5 - Math.random());
+const shuffled = (array) => {
+	return generateBoard(array).sort(() => 0.5 - Math.random());
+};
+
+let shuffledColors = shuffled(colors);
 
 const Grid = (props) => {
 	const pair = 2;
-	const [selects, setSelects] = useState([]);
-	const [isFlipped, setIsFlipped] = useState('');
+	const [selectedCards, setSelectedCards] = useState([]);
 	const [quests, setQuests] = useState([]);
 	const authCtx = useContext(StepContext);
 
@@ -54,14 +28,16 @@ const Grid = (props) => {
 		const element = event.target;
 		if (
 			element.classList.contains(classes.card) &&
-			!element.classList.contains(classes.disable)
+			!element.classList.contains(classes.disable) &&
+			!selectedCards.includes(+element.id)
 		) {
 			authCtx.stepCounter(element);
 		}
 	};
 
 	const handleClick = (id) => {
-		if (isFlipped === id) {
+		if (selectedCards.includes(id)) {
+			// setSelectedCards([]);
 			return;
 		}
 
@@ -69,48 +45,47 @@ const Grid = (props) => {
 			return;
 		}
 
-		if (selects.length < pair) {
-			setSelects((prevState) => [...prevState, id]);
-			setIsFlipped(id);
+		if (selectedCards.length === pair) {
+			return;
+		}
+
+		if (selectedCards.length <= pair) {
+			setSelectedCards((prevState) => [...prevState, id]);
 		}
 	};
 
 	const reset = useCallback(() => {
-		setSelects([]);
+		setSelectedCards([]);
 		setQuests([]);
-		setIsFlipped('');
 	}, []);
 
 	useEffect(() => {
 		if (quests.length === shuffledColors.length) {
 			props.onShow();
 			authCtx.gameIsOver();
+			shuffledColors = shuffled(colors);
 			reset();
 		}
 	}, [props, quests, reset, authCtx]);
 
-	const checkCardsColor = useCallback(
-		(firstElement, secondElement) => {
-			if (selects.length === 2) {
-				if (
-					shuffledColors[firstElement].color ===
-					shuffledColors[secondElement].color
-				) {
-					setQuests((prevState) => [...prevState, firstElement, secondElement]);
-					setSelects([]);
-				}
+	const checkCardsColor = useCallback((firstElement, secondElement) => {
+		if (
+			shuffledColors[firstElement].color === shuffledColors[secondElement].color
+		) {
+			setQuests((prevState) => [...prevState, firstElement, secondElement]);
+			setSelectedCards([]);
+		}
 
-				setTimeout(() => {
-					setSelects([]);
-				}, 400);
-			}
-		},
-		[selects]
-	);
+		setTimeout(() => {
+			setSelectedCards([]);
+		}, 500);
+	}, []);
 
 	useEffect(() => {
-		checkCardsColor(selects[0], selects[1]);
-	}, [selects, checkCardsColor, props, authCtx]);
+		if (selectedCards.length === pair) {
+			checkCardsColor(selectedCards[0], selectedCards[1]);
+		}
+	}, [selectedCards, checkCardsColor, props, authCtx]);
 
 	return (
 		<div className={classes.grid} onClick={stepCounterHandler}>
@@ -118,12 +93,13 @@ const Grid = (props) => {
 				<Fragment key={index}>
 					<div
 						className={
-							selects.includes(index)
+							selectedCards.includes(index)
 								? `${item.color} ${classes.card}`
 								: quests.includes(index)
 								? `${item.color} ${classes.disable} ${classes.card}`
 								: `${item.color} ${classes.hide} ${classes.card}`
 						}
+						id={index}
 						onClick={() => handleClick(index, item.color)}
 					></div>
 				</Fragment>
