@@ -1,4 +1,4 @@
-const colors = [
+const cardColors = [
 	{
 		color: 'red',
 	},
@@ -28,4 +28,4 @@ const colors = [
 	},
 ];
 
-export default colors;
+export default cardColors;
