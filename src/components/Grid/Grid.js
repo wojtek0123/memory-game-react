@@ -48,7 +48,6 @@ const Grid = (props) => {
 	const [selects, setSelects] = useState([]);
 	const [isFlipped, setIsFlipped] = useState('');
 	const [quests, setQuests] = useState([]);
-	// const [isFinished, setIsFinished] = useState(true);
 	const authCtx = useContext(StepContext);
 
 	const stepCounterHandler = (event) => {
@@ -77,14 +76,13 @@ const Grid = (props) => {
 	};
 
 	const reset = useCallback(() => {
-		setTimeout(() => {
-			setSelects([]);
-			setQuests([]);
-			setIsFlipped('');
-		}, 1000);
+		setSelects([]);
+		setQuests([]);
+		setIsFlipped('');
 	}, []);
 
 	useEffect(() => {
+		console.log(`Quests: ${quests.length}`)
 		if (quests.length === shuffledColors.length) {
 			props.onShow();
 			authCtx.gameIsOver();
@@ -100,11 +98,12 @@ const Grid = (props) => {
 					shuffledColors[secondElement].color
 				) {
 					setQuests((prevState) => [...prevState, firstElement, secondElement]);
+					setSelects([]);
 				}
 
 				setTimeout(() => {
 					setSelects([]);
-				}, 500);
+				}, 400);
 			}
 		},
 		[selects]

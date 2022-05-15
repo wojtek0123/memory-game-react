@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from 'react';
 
 const Timer = (props) => {
 	const [inter, setInter] = useState(null);
-
 	const [seconds, setSeconds] = useState(0);
 	const [minutes, setMinutes] = useState(0);
 
@@ -16,25 +15,29 @@ const Timer = (props) => {
 	}
 
 	const timer = useCallback(() => {
-		if (props.show === true) {
+		if (props.show) {
 			return;
 		}
 
 		setSeconds((prevState) => prevState + 1);
 	}, [props.show]);
 
+	const stopTimer = useCallback(() => {
+		clearInterval(inter);
+		setInter(null);
+		props.onStopTimer(minutes, seconds)
+	}, [inter, minutes, seconds, props])
+
 	useEffect(() => {
-		if (props.show === false && inter === null) {
+		if (!props.show && inter === null) {
 			setInter(setInterval(timer, 1000));
 		}
 
-		if (props.show === true) {
-			clearInterval(inter);
-			setInter(null);
+		if (props.show) {
+			stopTimer();
 		}
-	}, [props.show, timer, inter]);
-	
-	// if isFinished state from Modal is true stop the timer
+		
+	}, [props, inter, timer, stopTimer]);
 
 	return (
 		<p>

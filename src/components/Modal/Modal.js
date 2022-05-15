@@ -5,27 +5,35 @@ import StepContext from '../../store/steps-context';
 
 const Modal = (props) => {
 	const stepCtx = useContext(StepContext);
+	// const [resetTime, setResetTime] = useState(false);
 
 	const resetGame = () => {
-		props.onEndGame()
-		stepCtx.resetStepCounter()
-	}
-
+		props.onClick();
+		stepCtx.resetStepCounter();
+		// props.onResetGame();
+	};
+	
 	return (
 		<Fragment>
 			{createPortal(
 				<div className={classes.modal}>
 					<h2>Memory Game!</h2>
-					{props.onEndGame && (
+					{!props.onFirstGame && (
 						<>
-							<p>Time: 00:00</p>
+							<p>
+								Time: {props.minutes < 10 ? '0' + props.minutes : props.minutes}
+								:{props.seconds < 10 ? '0' + props.seconds : props.seconds}
+							</p>
 							<p>Steps: {stepCtx.steps}</p>
+							<button onClick={resetGame}>Play Again!</button>
 						</>
 					)}
-					{!props.onEndGame && <p>Start the game</p>}
-					<button onClick={resetGame}>
-						Play!
-					</button>
+					{props.onFirstGame && (
+						<>
+							<p>Start the game</p>
+							<button onClick={resetGame}>Play!</button>
+						</>
+					)}
 				</div>,
 				document.getElementById('modal')
 			)}
