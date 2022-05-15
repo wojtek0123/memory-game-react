@@ -38,7 +38,7 @@ const App = () => {
 		<div className='App'>
 			<h1>Memory Game!</h1>
 			<div className='stats'>
-				<Steps>{stepCtx.steps}</Steps>
+				<Steps steps={stepCtx.steps}/>
 				<Timer minutes={timerCtx.minutes} seconds={timerCtx.seconds} />
 			</div>
 			<Grid onShow={showModal} />

@@ -1,5 +1,5 @@
 const Steps = (props) => {
-	return <p>Steps: {props.children}</p>;
+	return <p>Steps: {props.steps}</p>;
 };
 
 export default Steps;
