@@ -1,4 +1,4 @@
-import { useContext, Fragment, useState, useEffect, useCallback } from 'react';
+import { useContext, Fragment, useState, useEffect, useCallback, useRef } from 'react';
 import classes from './Grid.module.css';
 import cardColors from '../../card-colors/card-colors';
 import StepContext from '../../store/steps-context';
@@ -23,7 +23,8 @@ const Grid = (props) => {
 	const pair = 2;
 	const authCtx = useContext(StepContext);
 	const [selectedCards, setSelectedCards] = useState([]);
-	const [quests, setQuests] = useState([]);
+	const [visibleCards, setVisibleCards] = useState([]);
+	const timeout = useRef('');
 
 	const stepCounterHandler = (event) => {
 		const element = event.target;
@@ -38,45 +39,46 @@ const Grid = (props) => {
 
 	const handleClick = (id) => {
 		if (selectedCards.includes(id)) {
+			// setSelectedCards(selectedCards.filter(card => card !== id))
 			return;
 		}
 
-		if (quests.includes(id)) {
-			return;
-		}
-
-		if (selectedCards.length === pair) {
+		if (visibleCards.includes(id)) {
 			return;
 		}
 
 		if (selectedCards.length < pair) {
 			setSelectedCards((prevState) => [...prevState, id]);
+			clearTimeout(timeout.current)
 		}
 	};
 
 	const reset = useCallback(() => {
 		setSelectedCards([]);
-		setQuests([]);
+		setVisibleCards([]);
 	}, []);
 
 	useEffect(() => {
-		if (quests.length === shuffledColors.length) {
+		if (visibleCards.length === shuffledColors.length) {
 			props.onShow();
 			authCtx.gameIsOver();
 			shuffledColors = shuffled(cardColors);
 			reset();
 		}
-	}, [props, quests, reset, authCtx]);
+	}, [props, visibleCards, reset, authCtx]);
 
 	const checkCardsColor = useCallback((firstElement, secondElement) => {
 		if (
 			shuffledColors[firstElement].color === shuffledColors[secondElement].color
 		) {
-			setQuests((prevState) => [...prevState, firstElement, secondElement]);
+			setVisibleCards((prevState) => [
+				...prevState,
+				firstElement,
+				secondElement,
+			]);
 			setSelectedCards([]);
 		}
-
-		setTimeout(() => {
+		timeout.current = setTimeout(() => {
 			setSelectedCards([]);
 		}, 400);
 	}, []);
@@ -84,9 +86,13 @@ const Grid = (props) => {
 	useEffect(() => {
 		const firstCard = 0;
 		const secondCard = selectedCards.length - 1;
-
+		let timeout = null;
 		if (selectedCards.length === pair) {
-			checkCardsColor(selectedCards[firstCard], selectedCards[secondCard]);
+			timeout = setTimeout(checkCardsColor(selectedCards[firstCard], selectedCards[secondCard]), 400)
+		}
+
+		return () => {
+			clearTimeout(timeout);
 		}
 	}, [selectedCards, checkCardsColor, props, authCtx]);
 
@@ -98,11 +104,9 @@ const Grid = (props) => {
 						className={
 							selectedCards.includes(index)
 								? `${item.color} ${classes.card}`
-								: quests.includes(index)
+								: visibleCards.includes(index)
 								? `${item.color} ${classes.disable} ${classes.card}`
-								: selectedCards.length === 2
-								? `${item.color} ${classes.hide} ${classes.card}`
-								: `${item.color} ${classes['enable-click']} ${classes.hide} ${classes.card}`
+								: `${item.color} ${classes.hide} ${classes.card}`
 						}
 						id={index}
 						onClick={() => handleClick(index, item.color)}
