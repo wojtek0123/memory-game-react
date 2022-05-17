@@ -1,6 +1,1 @@
 - make tests
-- improve UI
-- refactor code
-- create Card component
-- improve names
-- add transition on states
