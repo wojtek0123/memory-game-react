@@ -1,9 +1,11 @@
 .grid {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(50px, 1fr));
+	grid-auto-rows: minmax(75px, 250px);
+	grid-auto-flow: dense;
 	place-items: center;
 	gap: 1em;
-	height: 80vh;
+	height: calc(100vh - 100px);
 	max-width: 1200px;
 	margin-inline: auto;
 	margin-top: 1em;
@@ -12,15 +14,13 @@
 .card {
 	width: 100%;
 	height: 100%;
-  border: 0.1em solid black;
-	transition: transform .3s;
+	min-height: 4em;
+  border: 0.15em solid var(--modal-background);
+	transition: transform .3s, background-color .3s;
 }
 
 .hide {
   background-color: transparent;
-}
-
-.enable-click {
 	cursor: pointer;
 }
 
@@ -31,6 +31,6 @@
 
 @media (min-width: 1024px) {
 	.grid {
-		grid-template-columns: repeat(4, minmax(50px, 1fr));
+		grid-template-columns: repeat(4, minmax(100px, 1fr));
 	}
 }

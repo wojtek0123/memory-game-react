@@ -18,7 +18,7 @@ const Modal = (props) => {
 	return (
 		<Fragment>
 			{createPortal(
-				<div className={classes.modal}>
+				<div className={classes.modal} >
 					<h2>Memory Game!</h2>
 					{!props.onFirstGame && (
 						<>

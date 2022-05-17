@@ -2,13 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import Modal from './components/Modal/Modal';
 import Grid from './components/Grid/Grid';
-import Timer from './components/UI/Timer';
-import Steps from './components/UI/Steps';
 import TimerContext from './store/timer-context';
-import StepContext from './store/steps-context';
+import Statistics from './components/UI/Statistics';
 
 const App = () => {
-	const stepCtx = useContext(StepContext);
 	const timerCtx = useContext(TimerContext);
 	const [show, setShow] = useState(true);
 	const [firstGame, setFirstGame] = useState(true);
@@ -17,6 +14,12 @@ const App = () => {
 	const hideModal = () => {
 		setShow(false);
 		setFirstGame(false);
+	};
+
+	const showModal = () => {
+		setShow(true);
+		clearInterval(inter);
+		setInter(null);
 	};
 
 	useEffect(() => {
@@ -28,19 +31,9 @@ const App = () => {
 			);
 	}, [timerCtx, show, inter]);
 
-	const showModal = () => {
-		setShow(true);
-		clearInterval(inter);
-		setInter(null);
-	};
-
 	return (
 		<div className='App'>
-			<h1>Memory Game!</h1>
-			<div className='stats'>
-				<Steps steps={stepCtx.steps}/>
-				<Timer minutes={timerCtx.minutes} seconds={timerCtx.seconds} />
-			</div>
+			<Statistics />
 			<Grid onShow={showModal} />
 			{show && <Modal onClick={hideModal} onFirstGame={firstGame} />}
 		</div>

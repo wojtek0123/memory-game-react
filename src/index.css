@@ -3,7 +3,62 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+html {
+	--modal-background: #112b3c;
+	--button-hover: #f66b0e;
+	--primary: #efefef;
+	--secondary: #205375;
+	--white: #fff;
+	--card-red: rgb(255, 0, 0);
+	--card-yellow: rgb(255,255,0);
+	--card-green: rgb(173, 255, 47);
+	--card-blue: rgb(65, 105, 225);
+	--card-purple: rgb(128,0,128);
+	--card-pink: rgb(255, 192, 203);
+	--card-grey: rgb(128,128,128);
+	--card-brown: rgb(120, 36, 36);
+	--card-orange: rgb(255, 165, 0);
+}
  
 body {
   position: relative;
+	overflow-x: hidden;
+	background-color: var(--white);
+}
+
+.red {
+	background-color: var(--card-red);
+}
+
+.yellow {
+	background-color: var(--card-yellow);
+}
+
+.green {
+	background-color: var(--card-green);
+}
+
+.blue {
+	background-color: var(--card-blue);
+}
+
+.purple {
+	background-color: var(--card-purple);
+}
+
+.pink {
+	background-color: var(--card-pink);
+}
+
+.grey {
+	background-color: var(--card-grey);
+}
+
+.brown {
+	background-color: var(--card-brown);
+}
+
+.orange {
+	background-color: var(--card-orange);
 }

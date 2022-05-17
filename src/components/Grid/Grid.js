@@ -39,7 +39,6 @@ const Grid = (props) => {
 
 	const handleClick = (id) => {
 		if (selectedCards.includes(id)) {
-			// setSelectedCards(selectedCards.filter(card => card !== id))
 			return;
 		}
 
