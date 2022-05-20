@@ -1,11 +1,5 @@
-const Card = (props) => {
-	return (
-		<div 
-      className={props.className}
-      onClick={props.onClick}
-      id={props.id}
-    />
-	);
+const Card = ({ className, onClick, id }) => {
+	return <div className={className} onClick={onClick} id={id} data-testid='cardTest' />;
 };
 
 export default Card;

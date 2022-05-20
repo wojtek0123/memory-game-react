@@ -1,5 +1,5 @@
-const Steps = (props) => {
-	return <p>Steps: {props.steps}</p>;
+const Steps = ({steps}) => {
+	return <p>Steps: <span>{steps}</span></p>;
 };
 
 export default Steps;

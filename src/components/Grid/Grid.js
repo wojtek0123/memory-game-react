@@ -19,7 +19,7 @@ const shuffled = (array) => {
 
 let shuffledColors = shuffled(cardColors);
 
-const Grid = (props) => {
+const Grid = ({onShow}) => {
 	const pair = 2;
 	const authCtx = useContext(StepContext);
 	const [selectedCards, setSelectedCards] = useState([]);
@@ -59,12 +59,12 @@ const Grid = (props) => {
 
 	useEffect(() => {
 		if (visibleCards.length === shuffledColors.length) {
-			props.onShow();
+			onShow();
 			authCtx.gameIsOver();
 			shuffledColors = shuffled(cardColors);
 			reset();
 		}
-	}, [props, visibleCards, reset, authCtx]);
+	}, [onShow, visibleCards, reset, authCtx]);
 
 	const checkCardsColor = useCallback((firstElement, secondElement) => {
 		if (
@@ -93,12 +93,11 @@ const Grid = (props) => {
 		return () => {
 			clearTimeout(timeout);
 		}
-	}, [selectedCards, checkCardsColor, props, authCtx]);
+	}, [selectedCards, checkCardsColor, onShow, authCtx]);
 
 	return (
 		<div className={classes.grid} onClick={stepCounterHandler}>
 			{shuffledColors.map((item, index) => (
-				<Fragment key={index}>
 					<Card
 						className={
 							selectedCards.includes(index)
@@ -108,9 +107,9 @@ const Grid = (props) => {
 								: `${item.color} ${classes.hide} ${classes.card}`
 						}
 						id={index}
+						key={index}
 						onClick={() => handleClick(index, item.color)}
 					/>
-				</Fragment>
 			))}
 		</div>
 	);

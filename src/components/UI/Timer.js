@@ -1,11 +1,14 @@
-const Timer = (props) => {
+import classes from './Timer.module.css';
+
+const Timer = ({ minutes, seconds }) => {
+	const displayTime = `${minutes < 10 ? `0${minutes}` : `${minutes}`}:${
+		seconds < 10 ? `0${seconds}` : `${seconds}`
+	}`;
+
 	return (
-		<p>
-			Time:{' '}
-			{`${props.minutes < 10 ? `0${props.minutes}` : `${props.minutes}`}:${
-				props.seconds < 10 ? `0${props.seconds}` : `${props.seconds}`
-			}`}
-		</p>
+		<div className={classes.timer}>
+			<p>Time: <span>{displayTime}</span></p>
+		</div>
 	);
 };
 
