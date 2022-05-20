@@ -9,11 +9,12 @@
 	background-color: var(--modal-background);
 	color: var(--primary);
 	z-index: 1;
+	text-align: center;
 }
 
-.modal h2 {
+.modal h1 {
 	font-size: 2.5rem;
-	margin-bottom: 1em;
+	margin: 1em 0.25em;
 }
 
 .modal p {
@@ -34,4 +35,11 @@
 .modal button:hover {
 	background-color: var(--button-hover);
 	color: var(--primary);
+}
+
+.stats {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
