@@ -6,9 +6,8 @@
 	place-items: center;
 	gap: 1em;
 	height: calc(100vh - 100px);
-	max-width: 1200px;
-	margin-inline: auto;
-	margin-top: 1em;
+	margin: 1em 1em 0;
+	width: 100%;
 }
 
 .grid ul {

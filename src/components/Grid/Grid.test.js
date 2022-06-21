@@ -1,5 +1,5 @@
-import { screen, render, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
+// import userEvent from '@testing-library/user-event';
 import Grid from './Grid';
 
 describe('Grid component', () => {

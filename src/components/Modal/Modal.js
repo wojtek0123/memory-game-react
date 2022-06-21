@@ -1,7 +1,7 @@
-// import { Fragment  } from 'react';
-// import { createPortal } from 'react-dom';
 import classes from './Modal.module.css';
-import Statistics from '../UI/Statistics';
+import Statistics from '../Statistics/Statistics';
+import Button from '../UI/Button';
+import Leaderboards from '../Leaderboards/Leaderboards';
 
 const Modal = ({ firstGame, onClick }) => {
 	return (
@@ -9,14 +9,16 @@ const Modal = ({ firstGame, onClick }) => {
 			<h1>Memory Game!</h1>
 			{!firstGame && (
 				<div>
-					<Statistics />
-					<button onClick={onClick}>Play Again!</button>
+					<Statistics onClick={onClick} />
+					<Button onClick={onClick}>Play Again!</Button>
+					<Leaderboards />
 				</div>
 			)}
 			{firstGame && (
 				<div>
 					<p>Start the game</p>
-					<button onClick={onClick}>Play!</button>
+					<Button onClick={onClick}>Play!</Button>
+					<Leaderboards />
 				</div>
 			)}
 		</div>

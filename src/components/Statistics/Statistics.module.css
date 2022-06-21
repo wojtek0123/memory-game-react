@@ -1,0 +1,14 @@
+.stats {
+	display: flex;
+	justify-content: space-evenly;
+	/* max-width: 1200px; */
+	align-items: center;
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+	.stats p {
+		margin: 0.1em;
+		font-size: 1.2rem;
+	}
+}

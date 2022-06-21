@@ -1,8 +1,10 @@
-import { useContext, Fragment, useState, useEffect, useCallback, useRef } from 'react';
+import { useContext, useState, useEffect, useCallback, useRef } from 'react';
 import classes from './Grid.module.css';
 import cardColors from '../../card-colors/card-colors';
 import StepContext from '../../store/steps-context';
 import Card from './Card';
+import LeaderboardsContext from '../../store/leaderboards-context';
+import TimerContext from '../../store/timer-context';
 
 const generateBoard = (array) => {
 	const arrayOfColors = [];
@@ -19,9 +21,11 @@ const shuffled = (array) => {
 
 let shuffledColors = shuffled(cardColors);
 
-const Grid = ({onShow}) => {
+const Grid = ({ onShow }) => {
 	const pair = 2;
-	const authCtx = useContext(StepContext);
+	const stepCtx = useContext(StepContext);
+	const timeCtx = useContext(TimerContext);
+	const recordsCtx = useContext(LeaderboardsContext);
 	const [selectedCards, setSelectedCards] = useState([]);
 	const [visibleCards, setVisibleCards] = useState([]);
 	const timeout = useRef('');
@@ -33,7 +37,7 @@ const Grid = ({onShow}) => {
 			!element.classList.contains(classes.disable) &&
 			!selectedCards.includes(+element.id)
 		) {
-			authCtx.stepCounter(element);
+			stepCtx.stepCounter(element);
 		}
 	};
 
@@ -48,7 +52,7 @@ const Grid = ({onShow}) => {
 
 		if (selectedCards.length < pair) {
 			setSelectedCards((prevState) => [...prevState, id]);
-			clearTimeout(timeout.current)
+			clearTimeout(timeout.current);
 		}
 	};
 
@@ -60,11 +64,14 @@ const Grid = ({onShow}) => {
 	useEffect(() => {
 		if (visibleCards.length === shuffledColors.length) {
 			onShow();
-			authCtx.gameIsOver();
+			const time = timeCtx.minutes * 60 + timeCtx.seconds
+			recordsCtx.addToLeaderboards(time, stepCtx.steps);
+
+			stepCtx.gameIsOver();
 			shuffledColors = shuffled(cardColors);
 			reset();
 		}
-	}, [onShow, visibleCards, reset, authCtx]);
+	}, [onShow, visibleCards, reset, stepCtx, timeCtx, recordsCtx]);
 
 	const checkCardsColor = useCallback((firstElement, secondElement) => {
 		if (
@@ -87,29 +94,32 @@ const Grid = ({onShow}) => {
 		const secondCard = selectedCards.length - 1;
 		let timeout = null;
 		if (selectedCards.length === pair) {
-			timeout = setTimeout(checkCardsColor(selectedCards[firstCard], selectedCards[secondCard]), 400)
+			timeout = setTimeout(
+				checkCardsColor(selectedCards[firstCard], selectedCards[secondCard]),
+				400
+			);
 		}
 
 		return () => {
 			clearTimeout(timeout);
-		}
-	}, [selectedCards, checkCardsColor, onShow, authCtx]);
+		};
+	}, [selectedCards, checkCardsColor, onShow, stepCtx]);
 
 	return (
 		<div className={classes.grid} onClick={stepCounterHandler}>
 			{shuffledColors.map((item, index) => (
-					<Card
-						className={
-							selectedCards.includes(index)
-								? `${item.color} ${classes.card}`
-								: visibleCards.includes(index)
-								? `${item.color} ${classes.disable} ${classes.card}`
-								: `${item.color} ${classes.hide} ${classes.card}`
-						}
-						id={index}
-						key={index}
-						onClick={() => handleClick(index, item.color)}
-					/>
+				<Card
+					className={
+						selectedCards.includes(index)
+							? `${item.color} ${classes.card}`
+							: visibleCards.includes(index)
+							? `${item.color} ${classes.disable} ${classes.card}`
+							: `${item.color} ${classes.hide} ${classes.card}`
+					}
+					id={index}
+					key={index}
+					onClick={() => handleClick(index, item.color)}
+				/>
 			))}
 		</div>
 	);

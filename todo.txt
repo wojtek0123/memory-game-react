@@ -1,5 +1,2 @@
-- make tests
-- add leaderboards
-- add feature to change grid
-- add integration tests
-- add unit test for grid
+- restart button
+- leaderboards

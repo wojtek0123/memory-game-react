@@ -1,0 +1,46 @@
+.leaderboards h2 {
+  margin: 3em 0 1em;
+  font-size: 2rem;
+}
+
+.table {
+  max-width: 600px;
+  width: 100vw;
+}
+
+.table td {
+  margin: 1em;
+}
+
+.tableRow {
+  font-size: 1.2rem;
+}
+
+.tableHeader {
+  font-size: 1.4rem;
+}
+
+.tableHeader td {
+  margin: 1em;
+}
+
+@media (min-width: 768px) {
+  .tableRow {
+    font-size: 1.4rem;
+  }
+  
+  .tableHeader {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tableRow {
+    font-size: 1.6rem;
+  }
+  
+  .tableHeader {
+    font-size: 1.8rem;
+  }
+}
+
