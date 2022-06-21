@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Leaderboards from './Leaderboards';
+import Leaderboards from './Leaderboard';
 
 describe('Leaderboards component', () => {
 	test('renders leaderboards as a text', () => {

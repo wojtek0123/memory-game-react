@@ -3,6 +3,11 @@
   font-size: 2rem;
 }
 
+.message {
+  font-size: 2rem;
+  padding-top: 1em;
+}
+
 .table {
   max-width: 600px;
   width: 100vw;

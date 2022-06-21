@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-const LeaderboardsContext = React.createContext({
+const LeaderboardContext = React.createContext({
 	records: [],
 	addToLeaderboards: (time, steps) => {},
 });
 
-export const LeaderboardsContextProvider = ({ children }) => {
+export const LeaderboardContextProvider = ({ children }) => {
 	const initialState = JSON.parse(localStorage.getItem('records'));
 	const [records, setRecords] = useState(initialState || []);
 
@@ -21,10 +21,10 @@ export const LeaderboardsContextProvider = ({ children }) => {
 	};
 
 	return (
-		<LeaderboardsContext.Provider value={contextValue}>
+		<LeaderboardContext.Provider value={contextValue}>
 			{children}
-		</LeaderboardsContext.Provider>
+		</LeaderboardContext.Provider>
 	);
 };
 
-export default LeaderboardsContext;
+export default LeaderboardContext;

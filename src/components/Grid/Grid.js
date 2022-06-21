@@ -3,7 +3,7 @@ import classes from './Grid.module.css';
 import cardColors from '../../card-colors/card-colors';
 import StepContext from '../../store/steps-context';
 import Card from './Card';
-import LeaderboardsContext from '../../store/leaderboards-context';
+import LeaderboardContext from '../../store/leaderboard-context';
 import TimerContext from '../../store/timer-context';
 
 const generateBoard = (array) => {
@@ -25,7 +25,7 @@ const Grid = ({ onShow }) => {
 	const pair = 2;
 	const stepCtx = useContext(StepContext);
 	const timeCtx = useContext(TimerContext);
-	const recordsCtx = useContext(LeaderboardsContext);
+	const recordsCtx = useContext(LeaderboardContext);
 	const [selectedCards, setSelectedCards] = useState([]);
 	const [visibleCards, setVisibleCards] = useState([]);
 	const timeout = useRef('');

@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import classes from './Leaderboards.module.css';
-import LeaderboardsContext from '../../store/leaderboards-context';
+import classes from './Leaderboard.module.css';
+import LeaderboardContext from '../../store/leaderboard-context';
 
-const Leaderboards = () => {
-	const recordsCtx = useContext(LeaderboardsContext);
+const Leaderboard = () => {
+	const recordsCtx = useContext(LeaderboardContext);
 	const { records } = recordsCtx;
 
 	const compare = (a, b) => {
@@ -37,7 +37,7 @@ const Leaderboards = () => {
 					<td className={classes.tableHeader}>Time</td>
 					<td className={classes.tableHeader}>Steps</td>
 				</tr>
-				{records.length === 0 && <p>No records to display!</p>}
+				{records.length === 0 && <td colSpan={3} className={classes.message}>No records to display!</td>}
 				{records.map((record, index) => {
 					if (index < 10) {
 						return (
@@ -56,4 +56,4 @@ const Leaderboards = () => {
 	);
 };
 
-export default Leaderboards;
+export default Leaderboard;

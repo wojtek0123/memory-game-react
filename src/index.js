@@ -5,11 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StepContextProvider } from './store/steps-context';
 import { TimerContextProvider } from './store/timer-context';
-import { LeaderboardsContextProvider } from './store/leaderboards-context';
+import { LeaderboardContextProvider } from './store/leaderboard-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<LeaderboardsContextProvider>
+	<LeaderboardContextProvider>
 		<TimerContextProvider>
 			<StepContextProvider>
 				<React.StrictMode>
@@ -17,7 +17,7 @@ root.render(
 				</React.StrictMode>
 			</StepContextProvider>
 		</TimerContextProvider>
-	</LeaderboardsContextProvider>
+	</LeaderboardContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
