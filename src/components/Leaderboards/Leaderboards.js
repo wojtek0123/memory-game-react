@@ -6,8 +6,6 @@ const Leaderboards = () => {
 	const recordsCtx = useContext(LeaderboardsContext);
 	const { records } = recordsCtx;
 
-	// records.sort((a, b) => a.time - b.time);
-
 	const compare = (a, b) => {
 		if (a.time > b.time) return 1;
 		if (a.time < b.time) return -1;

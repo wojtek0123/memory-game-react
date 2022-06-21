@@ -20,7 +20,6 @@ describe('Modal component', () => {
     render(<Modal />)
     const buttonElement = screen.getByRole('button');
     userEvent.click(buttonElement);
-    // const outputElement = screen.getByText('Play Again!');
     expect(buttonElement.textContent).toBe('Play Again!');
   })
 })
