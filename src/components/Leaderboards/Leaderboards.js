@@ -31,13 +31,13 @@ const Leaderboards = () => {
 	return (
 		<div className={classes.leaderboards}>
 			<h2>Leaderboards</h2>
-			{records.length === 0 && <p>No records to display!</p>}
 			<table className={classes.table}>
 				<tr>
 					<td className={classes.tableHeader}>Place</td>
 					<td className={classes.tableHeader}>Time</td>
 					<td className={classes.tableHeader}>Steps</td>
 				</tr>
+				{records.length === 0 && <p>No records to display!</p>}
 				{records.map((record, index) => {
 					if (index < 10) {
 						return (
