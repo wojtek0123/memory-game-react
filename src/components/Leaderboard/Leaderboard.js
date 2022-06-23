@@ -20,7 +20,7 @@ const Leaderboard = () => {
 
 	const convertToMinutesAndSeconds = (time) => {
 		const minutes = Math.floor(time / 60);
-		const seconds = time - minutes;
+		const seconds = time - minutes * 60;
 
 		const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
 		const displaySeconds = seconds < 10 ? `0${seconds}` : seconds;
