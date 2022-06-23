@@ -5,27 +5,27 @@ const cardColors = [
 	{
 		color: 'yellow',
 	},
-	// {
-	// 	color: 'green',
-	// },
-	// {
-	// 	color: 'blue',
-	// },
-	// {
-	// 	color: 'purple',
-	// },
-	// {
-	// 	color: 'pink',
-	// },
-	// {
-	// 	color: 'grey',
-	// },
-	// {
-	// 	color: 'brown',
-	// },
-	// {
-	// 	color: 'orange',
-	// },
+	{
+		color: 'green',
+	},
+	{
+		color: 'blue',
+	},
+	{
+		color: 'purple',
+	},
+	{
+		color: 'pink',
+	},
+	{
+		color: 'grey',
+	},
+	{
+		color: 'brown',
+	},
+	{
+		color: 'orange',
+	},
 ];
 
 export default cardColors;
