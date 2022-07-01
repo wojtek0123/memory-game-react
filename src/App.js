@@ -1,14 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Modal from './components/Modal/Modal';
 import Grid from './components/Grid/Grid';
-import TimerContext from './store/timer-context';
-import StepContext from './store/steps-context';
 import Statistics from './components/Statistics/Statistics';
 
+import { timerActions } from './store/timer';
+import { stepsActions } from './store/steps';
+import { useDispatch } from 'react-redux';
+
 const App = () => {
-	const timerCtx = useContext(TimerContext);
-	const stepCtx = useContext(StepContext);
+	const dispatch = useDispatch();
 	const [show, setShow] = useState(true);
 	const [firstGame, setFirstGame] = useState(true);
 	const [inter, setInter] = useState(null);
@@ -18,8 +19,8 @@ const App = () => {
 		setIsStarted(true);
 		setShow(false);
 		setFirstGame(false);
-		stepCtx.resetStepCounter();
-		timerCtx.resetTimer();
+		dispatch(stepsActions.resetStepCounter());
+		dispatch(timerActions.resetTimer());
 	};
 
 	const showModal = () => {
@@ -32,10 +33,10 @@ const App = () => {
 		if (!show && inter === null)
 			setInter(
 				setInterval(() => {
-					timerCtx.startTimer();
+					dispatch(timerActions.startTimer());
 				}, 1000)
 			);
-	}, [timerCtx, show, inter]);
+	}, [dispatch, show, inter]);
 
 	const renderItem = show ? (
 		<Modal onClick={hideModal} firstGame={firstGame} />

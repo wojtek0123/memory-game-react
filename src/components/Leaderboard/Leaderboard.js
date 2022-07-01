@@ -1,10 +1,8 @@
-import { useContext } from 'react';
 import classes from './Leaderboard.module.css';
-import LeaderboardContext from '../../store/leaderboard-context';
+import { useSelector } from 'react-redux';
 
 const Leaderboard = () => {
-	const recordsCtx = useContext(LeaderboardContext);
-	const { records } = recordsCtx;
+	const records = useSelector((state) => state.leaderboard.records);
 
 	const compare = (a, b) => {
 		if (a.time > b.time) return 1;
@@ -16,7 +14,8 @@ const Leaderboard = () => {
 		}
 	};
 
-	records.sort(compare);
+	const sortedRecords = [...records];
+	sortedRecords.sort(compare);
 
 	const convertToMinutesAndSeconds = (time) => {
 		const minutes = Math.floor(time / 60);
@@ -32,25 +31,33 @@ const Leaderboard = () => {
 		<div className={classes.leaderboards}>
 			<h2>Leaderboards</h2>
 			<table className={classes.table}>
-				<tr>
-					<td className={classes.tableHeader}>Place</td>
-					<td className={classes.tableHeader}>Time</td>
-					<td className={classes.tableHeader}>Steps</td>
-				</tr>
-				{records.length === 0 && <td colSpan={3} className={classes.message}>No records to display!</td>}
-				{records.map((record, index) => {
-					if (index < 10) {
-						return (
-							<tr key={index} className={classes.tableRow}>
-								<td>{index + 1}.</td>
-								<td>{convertToMinutesAndSeconds(record.time)}</td>
-								<td>{record.steps}</td>
-							</tr>
-						);
-					} else {
-						return <></>;
-					}
-				})}
+				<thead>
+					<tr>
+						<td className={classes.tableHeader}>Place</td>
+						<td className={classes.tableHeader}>Time</td>
+						<td className={classes.tableHeader}>Steps</td>
+					</tr>
+				</thead>
+				<tbody>
+					{records.length === 0 && (
+						<td colSpan={3} className={classes.message}>
+							No records to display!
+						</td>
+					)}
+					{sortedRecords.map((record, index) => {
+						if (index < 10) {
+							return (
+								<tr key={index} className={classes.tableRow}>
+									<td>{index + 1}.</td>
+									<td>{convertToMinutesAndSeconds(record.time)}</td>
+									<td>{record.steps}</td>
+								</tr>
+							);
+						} else {
+							return <></>;
+						}
+					})}
+				</tbody>
 			</table>
 		</div>
 	);

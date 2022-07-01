@@ -1,10 +1,13 @@
-import { useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import classes from './Grid.module.css';
 import cardColors from '../../card-colors/card-colors';
-import StepContext from '../../store/steps-context';
 import Card from './Card';
-import LeaderboardContext from '../../store/leaderboard-context';
-import TimerContext from '../../store/timer-context';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { stepsActions } from '../../store/steps';
+import { leaderboardActions } from '../../store/leaderboard';
+
+const PAIR = 2;
 
 const generateBoard = (array) => {
 	const arrayOfColors = [];
@@ -22,10 +25,10 @@ const shuffled = (array) => {
 let shuffledColors = shuffled(cardColors);
 
 const Grid = ({ onShow }) => {
-	const pair = 2;
-	const stepCtx = useContext(StepContext);
-	const timeCtx = useContext(TimerContext);
-	const recordsCtx = useContext(LeaderboardContext);
+	const dispatch = useDispatch();
+	const steps = useSelector(state => state.steps.steps);
+	const seconds = useSelector(state => state.timer.seconds);
+	const minutes = useSelector(state => state.timer.minutes);
 	const [selectedCards, setSelectedCards] = useState([]);
 	const [visibleCards, setVisibleCards] = useState([]);
 	const timeout = useRef('');
@@ -37,7 +40,7 @@ const Grid = ({ onShow }) => {
 			!element.classList.contains(classes.disable) &&
 			!selectedCards.includes(+element.id)
 		) {
-			stepCtx.stepCounter(element);
+			dispatch(stepsActions.stepCounter());
 		}
 	};
 
@@ -50,7 +53,7 @@ const Grid = ({ onShow }) => {
 			return;
 		}
 
-		if (selectedCards.length < pair) {
+		if (selectedCards.length < PAIR) {
 			setSelectedCards((prevState) => [...prevState, id]);
 			clearTimeout(timeout.current);
 		}
@@ -64,14 +67,13 @@ const Grid = ({ onShow }) => {
 	useEffect(() => {
 		if (visibleCards.length === shuffledColors.length) {
 			onShow();
-			const time = timeCtx.minutes * 60 + timeCtx.seconds
-			recordsCtx.addToLeaderboards(time, stepCtx.steps);
-
-			stepCtx.gameIsOver();
+			const time = minutes * 60 + seconds;
+			dispatch(leaderboardActions.addToLeaderboards({ time: time, steps: steps }));
+			dispatch(stepsActions.gameIsOver());
 			shuffledColors = shuffled(cardColors);
 			reset();
 		}
-	}, [onShow, visibleCards, reset, stepCtx, timeCtx, recordsCtx]);
+	}, [dispatch, minutes, seconds, onShow, reset, steps, visibleCards.length]);
 
 	const checkCardsColor = useCallback((firstElement, secondElement) => {
 		if (
@@ -93,7 +95,7 @@ const Grid = ({ onShow }) => {
 		const firstCard = 0;
 		const secondCard = selectedCards.length - 1;
 		let timeout = null;
-		if (selectedCards.length === pair) {
+		if (selectedCards.length === PAIR) {
 			timeout = setTimeout(
 				checkCardsColor(selectedCards[firstCard], selectedCards[secondCard]),
 				400
@@ -103,7 +105,7 @@ const Grid = ({ onShow }) => {
 		return () => {
 			clearTimeout(timeout);
 		};
-	}, [selectedCards, checkCardsColor, onShow, stepCtx]);
+	}, [selectedCards, checkCardsColor, onShow]);
 
 	return (
 		<div className={classes.grid} onClick={stepCounterHandler}>

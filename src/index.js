@@ -3,21 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { StepContextProvider } from './store/steps-context';
-import { TimerContextProvider } from './store/timer-context';
-import { LeaderboardContextProvider } from './store/leaderboard-context';
+// import { LeaderboardContextProvider } from './store/leaderboard-context';
+import store from './store/index';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<LeaderboardContextProvider>
-		<TimerContextProvider>
-			<StepContextProvider>
-				<React.StrictMode>
-					<App />
-				</React.StrictMode>
-			</StepContextProvider>
-		</TimerContextProvider>
-	</LeaderboardContextProvider>
+	// <LeaderboardContextProvider>
+		<Provider store={store}>
+			<React.StrictMode>
+				<App />
+			</React.StrictMode>
+		</Provider>
+	// </LeaderboardContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

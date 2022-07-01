@@ -1,6 +1,6 @@
 import classes from './ResetButton.module.css';
 
-const ResetButton = ({ onClick, onResetGame }) => {
+const ResetButton = ({ onClick }) => {
 	return (
 		<button className={classes.resetButton} onClick={onClick}>
 			Reset
