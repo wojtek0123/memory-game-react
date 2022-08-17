@@ -23,9 +23,9 @@ const cardColors = [
 	{
 		color: 'brown',
 	},
-	{
-		color: 'orange',
-	},
+	// {
+	// 	color: 'orange',
+	// },
 ];
 
 export default cardColors;

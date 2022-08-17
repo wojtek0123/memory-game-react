@@ -1,28 +1,31 @@
-// import { useContext } from 'react';
 import classes from './Statistics.module.css';
-import Steps from './Steps';
-import Timer from './Timer';
-// import TimerContext from '../../store/timer-context';
-// import StepContext from '../../store/steps-context';
-import ResetButton from '../ResetButton/ResetButton';
-
 import { useSelector } from 'react-redux/es/exports';
 
-const Statistics = ({ onReset, hideBtn }) => {
-	const steps = useSelector(state => state.steps.steps);
-	const minutes = useSelector(state => state.timer.minutes);
-	const seconds = useSelector(state => state.timer.seconds);
+const DisplayStats = ({ type, value }) => {
+  return (
+    <div className={classes.display}>
+      <p>
+        {type}: <span>{value}</span>
+      </p>
+    </div>
+  );
+};
 
-	// const stepCtx = useContext(StepContext);
-	// const timerCtx = useContext(TimerContext);
+const Statistics = ({ isModalVisible }) => {
+  const steps = useSelector((state) => state.steps.steps);
+  const minutes = useSelector((state) => state.timer.minutes);
+  const seconds = useSelector((state) => state.timer.seconds);
 
-	return (
-		<div className={classes.stats}>
-			<Steps steps={steps} />
-			{hideBtn && <ResetButton onClick={onReset} />}
-			<Timer minutes={minutes} seconds={seconds} />
-		</div>
-	);
+  const displayTime = `${minutes < 10 ? `0${minutes}` : `${minutes}`}:${
+    seconds < 10 ? `0${seconds}` : `${seconds}`
+  }`;
+
+  return (
+    <div className={`${classes.stats} ${isModalVisible ? classes.column : ''}`}>
+      <DisplayStats type='Steps' value={steps} />
+      <DisplayStats type='Time' value={displayTime} />
+    </div>
+  );
 };
 
 export default Statistics;

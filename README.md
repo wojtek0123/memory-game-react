@@ -7,8 +7,12 @@ Project is created using React and Javascript
 link to live demo:
 https://memory-game-wojtek.netlify.app/
 
-# Available commands:
-### `npm start`
-### `npm test`
-### `npm run build`
-### `npm run eject`
+# How to run on your local machine
+`git clone https://github.com/wojtek0123/memory-game-react.git`
+`cd memory-game-react`
+`npm install`
+`npm start`
+
+# To do:
+## [x] Improve UI
+## [] Change Modal component to make it looks better
